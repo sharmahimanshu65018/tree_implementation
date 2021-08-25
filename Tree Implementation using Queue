@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    struct node* left;
+    struct node* right;
+    node(int val)
+    {
+        data = val;
+        left = right = NULL;
+    }
+};
+void preorder(struct node* root)
+{
+    if (root == NULL)
+        return;
+    cout << root->data;
+    preorder(root->left);
+    preorder(root->right);
+}
+int main()
+{
+    struct node* root, * newnode, * temp;
+    queue<struct node*> q;
+    int x;
+    cout << "enter the root node";
+    cin >> x;
+    root = new node(x);
+    q.push(root);
+    while (!(q.empty()))
+    {
+        char ch;
+        temp = q.front();
+        cout << "do you want to enter the left node of" << temp->data << " (y/n)" << endl;
+        cin >> ch;
+        q.pop();
+        if ((ch == 'y') || (ch == 'Y'))
+        {
+            cout << "Enter the value of left node";
+            cin >> x;
+            newnode = new node(x);
+            temp->left = newnode;
+            q.push(newnode);
+        }
+        cout << "do you want to enter the right node of" << temp->data << " (y/n)" << endl;
+        cin >> ch;
+        if ((ch == 'y') || (ch == 'Y'))
+        {
+            cout << "Enter the value of right node";
+            cin >> x;
+            newnode = new node(x);
+            temp->right = newnode;
+            q.push(newnode);
+        }
+    }
+    preorder(root);
+}
